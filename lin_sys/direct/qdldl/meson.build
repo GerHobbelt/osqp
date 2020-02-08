@@ -3,7 +3,8 @@
 qdldl_interface_src = ['qdldl_interface.d']
 # todo : EMBEDDED also requires these files
 #if embedded == '0'
-  amd_sources = ['amd/src/amd_1.d',
+  amd_sources = ['amd/include/amd_internal.d',
+                 'amd/src/amd_1.d',
                  'amd/src/amd_2.d',
                  'amd/src/amd_aat.d',
                  'amd/src/amd_control.d',
@@ -82,15 +83,6 @@ qdldlobject_lib = library('qdldlobject',
                           d_module_versions: d_module_versions,
 						              c_args: c_args)
 
-# Create Static Library
-# ----------------------------------------------
-message ('making static_library qdldlstatic_lib ...')
-qdldlstatic_lib = static_library('qdldlstatic', 
-                                qdldl_src, 
-                                qdldl_headers,
-                                include_directories: ['qdldl_sources/include', 'qdldl_sources/src'],
-                                d_module_versions: d_module_versions,
-								                c_args: c_args)
 # Give same name to static library output
 # set_target_properties(['qdldlstatic', 'PROPERTIES', 'OUTPUT_NAME', 'qdldl'])
 # Install Static Library
@@ -98,8 +90,8 @@ qdldlstatic_lib = static_library('qdldlstatic',
 
 # Create qdldl shared library
 # ----------------------------------------------
-message ('making shared_library qdldl_lib ...')
-qdldl_lib = shared_library('qdldl', 
+message ('making library qdldl_lib ...')
+qdldl_lib = library('qdldl', 
                            qdldl_src, 
                            qdldl_headers,
                            include_directories: ['qdldl_sources/include', 'qdldl_sources/src'],

@@ -18,7 +18,7 @@ version(MATLAB)
   //bool utSetInterruptEnabled(bool);
 }
 else {
-  version(IS_WINDOWS){  // todo : use native Windows
+  version(Windows){  // todo : use native Windows
     /* Use Windows SetConsoleCtrlHandler for signal handling */
     //#  include <windows.h>
     import windows;
@@ -47,7 +47,7 @@ version(MATLAB)
   }
 }
 else {
-  version(IS_WINDOWS)  // todo : use native Windows
+  version(Windows)  // todo : use native Windows
   {
     static int int_detected;
     //static BOOL WINAPI handle_ctrlc(DWORD dwCtrlType) {

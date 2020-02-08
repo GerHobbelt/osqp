@@ -7,7 +7,7 @@ import constants;
 import types;
 import lib_handler;
 
-version(IS_WINDOWS){
+version(Windows){
 enum string PARDISOLIBNAME = "mkl_rt." ~ SHAREDLIBEXT;
 } else {
 enum string PARDISOLIBNAME = "libmkl_rt." ~ SHAREDLIBEXT;

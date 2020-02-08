@@ -53,7 +53,7 @@ alias LinSysSolver = linsys_solver;  // todo : check it
 version(PROFILING){
 
 // Windows
-version(IS_WINDOWS){
+version(Windows){
 
   // Some R packages clash with elements
   // of the windows.h header, so use a
@@ -71,20 +71,20 @@ struct OSQP_TIMER {
   LARGE_INTEGER freq;
 };
 
-} else {
-  version(IS_MAC){
+} else version(OSX){
 
     //#   include <mach/mach_time.h>
-    import mach.mach_time;  // todo
+    import core.time: mach_timebase_info_data_t;  // todo
 
     /* Use MAC OSX  mach_time for timing */
     struct OSQP_TIMER {
-      uint64_t                  tic;
-      uint64_t                  toc;
+      ulong                  tic;
+      ulong                  toc;
       mach_timebase_info_data_t tinfo;
     };
   }
-  else // Linux
+else version(linux)
+{
 
     /* Use POSIX clock_gettime() for timing on non-Windows machines */
     import core.sys.posix.sys.time;
@@ -93,8 +93,7 @@ struct OSQP_TIMER {
       timespec tic;
       timespec toc;
     };
-
-  } // ifdef IS_WINDOWS
+}
 
 }/* END #ifdef PROFILING */
 

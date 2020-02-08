@@ -27,27 +27,8 @@ conf_data = configuration_data({
   'PYTHON': get_option('PYTHON'),
   'R_LANG': get_option('R_LANG'),
   'PYTHON_INCLUDE_DIRS': get_option('PYTHON_INCLUDE_DIRS'),
-  'MSVC': get_option('MSVC'),
   'FORTRAN': get_option('FORTRAN')
 })
-
-# Detect operating system
-# ----------------------------------------------
-system_name = get_option('SYSTEM_NAME')
-message(['STATUS', 'We are on a @0@ system'.format(system_name)])
-if system_name == 'Linux'
-  conf_data.set('IS_LINUX', true)
-  # todo : replace with native Linux  version
-  d_module_versions += 'IS_LINUX'
-elif system_name == 'Darwin'
-  conf_data.set('IS_MAC', true)
-  # todo : replace with native Darwin version
-  d_module_versions += 'IS_MAC'
-elif system_name == 'Windows'
-  d_module_versions += 'IS_WINDOWS'
-  # todo : replace with native Windows  version
-  conf_data.set('IS_WINDOWS', true)
-endif
 
 # Set options
 # ----------------------------------------------
@@ -209,7 +190,7 @@ rt_lib = []
 m_lib = []
 dl_lib = []
 
-if not conf_data.get('MSVC')
+if c_compiler.get_id() != 'msvc'
   if conf_data.get('COVERAGE')
     c_args += '--coverage'
     gcov_lib = c_compiler.find_library('gcov')
@@ -228,7 +209,7 @@ if not conf_data.get('MSVC')
   # Include math
   #c_args += '-lm'
   m_lib = c_compiler.find_library('m')
-  if system_name == 'Linux'
+  if target_machine.system() == 'linux'
     # Include real time library in linux
     #c_args += '-lrt -ldl'
     rt_lib = c_compiler.find_library('rt')
@@ -261,7 +242,8 @@ osqp_src = ['src/auxil.d',
             'src/proj.d',
             'src/scaling.d',
             'src/util.d',            
-            'include/glob_opts.d']
+            'include/glob_opts.d',
+            'include/types.d']
 
 # Add the KKT update only in normal mode and matrix-updating embedded mode (not mode 1)
 # todo : EMBEDDED also requires these files
@@ -286,10 +268,10 @@ endif
 subdir('lin_sys')
 # Static library
 # '.' include directory is for generated osqp_configure.h
-osqpstatic_lib = shared_library('osqpstatic', 
+osqpstatic_lib = library('osqpstatic', 
                                 osqp_src, 
                                 osqp_headers,
-                                include_directories: ['include', 'lin_sys/direct/qdldl', 'lin_sys/direct/qdldl/qdldl_sources/include', 'lin_sys/direct/pardiso', '.', 'src',
+                                include_directories: ['include', 'lin_sys/direct/qdldl', 'lin_sys/direct/qdldl/qdldl_sources/include', 'lin_sys/direct/pardiso', 'src',
                                       'lin_sys/direct/qdldl/qdldl_sources/src', 'lin_sys/direct/qdldl/amd/src', 'lin_sys/direct/qdldl/amd/include', 'lin_sys'], # for D modules
                                 #dependencies: [c_compiler.find_library('m'), c_compiler.find_library('rt'), c_compiler.find_library('dl'), c_compiler.find_library('gcov')],
                                 dependencies: [m_lib, rt_lib, dl_lib, gcov_lib],
@@ -317,7 +299,7 @@ if not python and not matlab and not r_lang and (embedded == '0')
   # Create osqp shared library
   # NB: Add all the linear system solvers here
 
-  osqp_lib = shared_library('osqp', 
+  osqp_lib = library('osqp', 
                             osqp_src, 
                             osqp_headers,
                             include_directories: ['include', 'lin_sys/direct/qdldl/', 'lin_sys/direct/qdldl/qdldl_sources/include', 'lin_sys/direct/pardiso',

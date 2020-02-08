@@ -49,13 +49,13 @@ static void print_line() {
 
 void print_header() {
   // Different indentation required for windows
-/*#if defined(IS_WINDOWS) && !defined(PYTHON)
+/*#if defined(Windows) && !defined(PYTHON)
   c_print("iter  ");
 #else
   c_print("iter   ");*/
 
 
-  version(IS_WINDOWS){
+  version(Windows){
     version(PYTHON){}
     else {
       c_print("iter  ");
@@ -183,12 +183,12 @@ void print_polish(OSQPWorkspace *work) {
   info = work.info;
 
   c_print(cast(char*)"%4s",     cast(char*)"plsh");
-  c_print(cast(char*)" %12.4e", cast(char*)info.obj_val);
-  c_print(cast(char*)"  %9.2e", cast(char*)info.pri_res);
-  c_print(cast(char*)"  %9.2e", cast(char*)info.dua_res);
+  c_print(cast(char*)" %12.4e", info.obj_val);
+  c_print(cast(char*)"  %9.2e", info.pri_res);
+  c_print(cast(char*)"  %9.2e", info.dua_res);
 
   // Different characters for windows/unix
-  version(IS_WINDOWS){
+  version(Windows){
     version(PYTHON){}
     else {
       c_print(cast(char*)"  ---------");
@@ -201,7 +201,7 @@ void print_polish(OSQPWorkspace *work) {
   else {
     c_print(cast(char*)"  ---------");
   }
-/*#if defined(IS_WINDOWS) && !defined(PYTHON)
+/*#if defined(Windows) && !defined(PYTHON)
   c_print("  ---------");
 #else
   c_print("   --------");
@@ -311,7 +311,7 @@ version(PROFILING){
 version(PROFILING){
 
 // Windows
-version(IS_WINDOWS){
+version(Windows){
 
   void osqp_tic(OSQPTimer *t)
   {
@@ -326,7 +326,9 @@ version(IS_WINDOWS){
   }
 
 } else {
-  version(IS_MAC){
+  version(OSX){
+
+    import core.time: mach_absolute_time, mach_timebase_info;
 
     void osqp_tic(OSQPTimer *t)
     {
@@ -336,7 +338,7 @@ version(IS_WINDOWS){
 
     c_float osqp_toc(OSQPTimer *t)
     {
-      uint64_t duration; /* elapsed time in clock cycles*/
+      ulong duration; /* elapsed time in clock cycles*/
 
       t.toc   = mach_absolute_time();
       duration = t.toc - t.tic;
@@ -349,7 +351,7 @@ version(IS_WINDOWS){
       return cast(c_float)duration / 1e9;
     }
 
-   } else { /* IS_LINUX */
+   } else { /* linux */
       /* read current time */
       void osqp_tic(OSQPTimer *t)
       {
@@ -372,8 +374,8 @@ version(IS_WINDOWS){
         }
         return cast(c_float)temp.tv_sec + cast(c_float)temp.tv_nsec / 1e9;
       }
-    } // IS_LINUX  
-} // IS_WINDOWS
+    } // linux  
+} // Windows
 
 } // If Profiling end
 

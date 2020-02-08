@@ -8,7 +8,7 @@ import glob_opts;
 import constants;
 import util;
 
-version(IS_WINDOWS){
+version(Windows){
 //#include <windows.h>
 // todo
 alias soHandle_t = HINSTANCE;
@@ -19,11 +19,11 @@ import core.sys.posix.dlfcn;
 alias soHandle_t = void *;
 }
 
-version(IS_WINDOWS)
+version(Windows)
 {
     enum string SHAREDLIBEXT = "dll";
 } else {
-    version(IS_MAC){
+    version(OSX){
         enum string SHAREDLIBEXT = "dylib";
     } else {
     enum string SHAREDLIBEXT = "so";
@@ -42,7 +42,7 @@ soHandle_t lh_load_lib(const char *libName) {
         return OSQP_NULL;
     }
 
-version(IS_WINDOWS){
+version(Windows){
     h = LoadLibrary (libName);
     if (!h) {
         version(PRINTING){
@@ -66,7 +66,7 @@ version(IS_WINDOWS){
 c_int lh_unload_lib (soHandle_t h) {
     c_int rc = 1;
 
-version (IS_WINDOWS){
+version (Windows){
     rc = FreeLibrary (h);
     rc = ! rc;
 } else {
@@ -77,7 +77,7 @@ version (IS_WINDOWS){
 } /* LSL_unLoadLib */
 
 
-version (IS_WINDOWS){
+version (Windows){
     alias symtype = FARPROC;
 } else {
     //typedef void* symtype;
@@ -156,7 +156,7 @@ symtype lh_load_sym (soHandle_t h, char *symName) {
         default:
             tripSym = cast(char*)symName;
         } /* end switch */
-version(IS_WINDOWS){
+version(Windows){
         s = GetProcAddress (h, tripSym);
         if (s) {
             return s;
