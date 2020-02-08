@@ -13,7 +13,7 @@ version(Windows){
 // todo
 alias soHandle_t = HINSTANCE;
 } else {
-import std.uni;
+import core.stdc.ctype;
 import core.sys.posix.dlfcn;
 
 alias soHandle_t = void *;
@@ -37,7 +37,7 @@ soHandle_t lh_load_lib(const char *libName) {
 
     if (!libName) {
         version(PRINTING){
-        c_eprint(cast(char*)"ERROR in %s: no library name given\n", cast(char*)__FUNCTION__);
+        c_eprint("ERROR in %s: no library name given\n", __FUNCTION__.ptr);
         }
         return OSQP_NULL;
     }
@@ -46,15 +46,15 @@ version(Windows){
     h = LoadLibrary (libName);
     if (!h) {
         version(PRINTING){
-        c_eprint(cast(char*)"ERROR in %s: Windows error while loading dynamic library %s, error = %d\n",
-                cast(char*)__FUNCTION__, libName, cast(int)GetLastError());
+        c_eprint("ERROR in %s: Windows error while loading dynamic library %s, error = %d\n",
+                __FUNCTION__.ptr, libName, cast(int)GetLastError());
         }
     }
 } else {
     h = dlopen (libName, RTLD_LAZY);
     if (!h) {
         version(PRINTING){
-        c_eprint(cast(char*)"ERROR in %s: Error while loading dynamic library %s: %s\n", cast(char*)__FUNCTION__, libName, dlerror());
+        c_eprint("ERROR in %s: Error while loading dynamic library %s: %s\n", __FUNCTION__.ptr, libName, dlerror());
         }
     }
 }
@@ -124,7 +124,7 @@ symtype lh_load_sym (soHandle_t h, char *symName) {
             break;
         case 2:                             /* lower_ */
             for (from = cast(char*)symName, to = cast(char*)lcbuf;  *from;  from++, to++) {
-                *to = cast(char)toLower(*from); // todo : may cause data loss
+                *to = cast(char)tolower(*from); // todo : may cause data loss
             }
             symLen = from - symName;
             *to++ = '_';
@@ -133,7 +133,7 @@ symtype lh_load_sym (soHandle_t h, char *symName) {
             break;
         case 3:                             /* upper_ */
             for (from = cast(char*)symName, to = cast(char*)ucbuf;  *from;  from++, to++) {
-                *to = cast(char)toUpper(*from);
+                *to = cast(char)toupper(*from);
             }
             *to++ = '_';
             *to = '\0';
@@ -162,7 +162,7 @@ version(Windows){
             return s;
         } else {
             version(PRINTING){
-            c_eprint(cast(char*)"ERROR in %s: Cannot find symbol %s in dynamic library, error = %d\n", cast(char*)__FUNCTION__, 
+            c_eprint("ERROR in %s: Cannot find symbol %s in dynamic library, error = %d\n", __FUNCTION__.ptr, 
                     symName, cast(int)GetLastError());
             }
         }
@@ -171,7 +171,7 @@ version(Windows){
         err = dlerror();  /* we have only one chance; a successive call to dlerror() returns OSQP_NULL */
         if (err) {
             version(PRINTING){
-            c_eprint(cast(char*)"ERROR in %s: Cannot find symbol %s in dynamic library, error = %s\n", cast(char*)__FUNCTION__, 
+            c_eprint("ERROR in %s: Cannot find symbol %s in dynamic library, error = %s\n", __FUNCTION__.ptr, 
                     symName, err);
             }
         } else {

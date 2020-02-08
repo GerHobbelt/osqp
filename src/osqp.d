@@ -530,7 +530,7 @@ version(PRINTING){
       // Actually update rho
       if (adapt_rho(work)) {
 version(PRINTING){
-        c_eprint(cast(char*)"ERROR in %s: Failed rho update\n", cast(char*)__FUNCTION__);
+        c_eprint("ERROR in %s: Failed rho update\n", __FUNCTION__.ptr);
 } // PRINTING
         exitflag = 1;
         goto exit;
@@ -840,7 +840,7 @@ version(PROFILING){
   for (i = 0; i < work.data.m; i++) {
     if (l_new[i] > u_new[i]) {
 version(PRINTING){
-      c_eprint(cast(char*)"ERROR in %s: lower bound must be lower than or equal to upper bound\n", cast(char*)__FUNCTION__);
+      c_eprint("ERROR in %s: lower bound must be lower than or equal to upper bound\n", __FUNCTION__.ptr);
 } /* ifdef PRINTING */
       return 1;
     }
@@ -898,7 +898,7 @@ version(PROFILING){
   for (i = 0; i < work.data.m; i++) {
     if (work.data.l[i] > work.data.u[i]) {
 version(PRINTING){
-      c_eprint(cast(char*)"ERROR in %s: upper bound must be greater than or equal to lower bound\n", cast(char*)__FUNCTION__);
+      c_eprint("ERROR in %s: upper bound must be greater than or equal to lower bound\n", __FUNCTION__.ptr);
  } /* ifdef PRINTING */
       return 1;
     }
@@ -946,7 +946,7 @@ version(PROFILING){
   for (i = 0; i < work.data.m; i++) {
     if (work.data.u[i] < work.data.l[i]) {
 version(PRINTING){
-      c_eprint(cast(char*)"ERROR in %s: lower bound must be lower than or equal to upper bound\n", cast(char*)__FUNCTION__);
+      c_eprint("ERROR in %s: lower bound must be lower than or equal to upper bound\n", __FUNCTION__.ptr);
  } /* ifdef PRINTING */
       return 1;
     }
@@ -1065,8 +1065,8 @@ version(PROFILING){
     // nonzeros in P
     if (P_new_n > nnzP) {
 version(PRINTING){
-      c_eprint(cast(char*)"ERROR in %s: new number of elements (%i) greater than elements in P (%i)\n",
-               cast(char*)__FUNCTION__,
+      c_eprint("ERROR in %s: new number of elements (%i) greater than elements in P (%i)\n",
+               __FUNCTION__.ptr,
                cast(c_int)P_new_n,
                cast(c_int)nnzP);
 } /* ifdef PRINTING */
@@ -1108,7 +1108,7 @@ version(PRINTING){
 version(PRINTING){
 
   if (exitflag < 0) {
-    c_eprint(cast(char*)"ERROR in %s: new KKT matrix is not quasidefinite\n", cast(char*)__FUNCTION__);
+    c_eprint("ERROR in %s: new KKT matrix is not quasidefinite\n", __FUNCTION__.ptr);
   }
 } /* ifdef PRINTING */
 
@@ -1146,8 +1146,8 @@ version(PROFILING){
     // nonzeros in A
     if (A_new_n > nnzA) {
 version(PRINTING){
-      c_eprint(cast(char*)"ERROR in %s: new number of elements (%i) greater than elements in A (%i)\n",
-               cast(char*)__FUNCTION__,
+      c_eprint("ERROR in %s: new number of elements (%i) greater than elements in A (%i)\n",
+               __FUNCTION__.ptr,
                cast(c_int)A_new_n,
                cast(c_int)nnzA);
 } /* ifdef PRINTING */
@@ -1188,7 +1188,7 @@ version(PRINTING){
 version(PRINTING){
 
   if (exitflag < 0) {
-    c_eprint(cast(char*)"ERROR in %s: new KKT matrix is not quasidefinite\n", cast(char*)__FUNCTION__);
+    c_eprint("ERROR in %s: new KKT matrix is not quasidefinite\n", __FUNCTION__.ptr);
   }
 } /* ifdef PRINTING */
 
@@ -1231,8 +1231,8 @@ version(PROFILING){
     // nonzeros in P
     if (P_new_n > nnzP) {
 version(PRINTING){
-      c_eprint(cast(char*)"ERROR in %s: new number of elements (%i) greater than elements in P (%i)\n",
-               cast(char*)__FUNCTION__,
+      c_eprint("ERROR in %s: new number of elements (%i) greater than elements in P (%i)\n",
+               __FUNCTION__.ptr,
                cast(c_int)P_new_n,
                cast(c_int)nnzP);
 } /* ifdef PRINTING */
@@ -1246,8 +1246,8 @@ version(PRINTING){
     // nonzeros in A
     if (A_new_n > nnzA) {
 version(PRINTING){
-      c_eprint(cast(char*)"ERROR in %s: new number of elements (%i) greater than elements in A (%i)\n",
-               cast(char*)__FUNCTION__,
+      c_eprint("ERROR in %s: new number of elements (%i) greater than elements in A (%i)\n",
+               __FUNCTION__.ptr,
                cast(c_int)A_new_n,
                cast(c_int)nnzA);
 } /* ifdef PRINTING */
@@ -1301,7 +1301,7 @@ version(PRINTING){
 version(PRINTING){
 
   if (exitflag < 0) {
-    c_eprint(cast(char*)"ERROR in %s: new KKT matrix is not quasidefinite\n", cast(char*)__FUNCTION__);
+    c_eprint("ERROR in %s: new KKT matrix is not quasidefinite\n", __FUNCTION__.ptr);
   }
  } /* ifdef PRINTING */
 
@@ -1321,7 +1321,7 @@ c_int osqp_update_rho(OSQPWorkspace *work, c_float rho_new) {
   // Check value of rho
   if (rho_new <= 0) {
 version(PRINTING){
-    c_eprint(cast(char*)"ERROR in %s: rho must be positive\n", cast(char*)__FUNCTION__);
+    c_eprint("ERROR in %s: rho must be positive\n", __FUNCTION__.ptr);
 } /* ifdef PRINTING */
     return 1;
   }
@@ -1378,7 +1378,7 @@ c_int osqp_update_max_iter(OSQPWorkspace *work, c_int max_iter_new) {
   // Check that max_iter is positive
   if (max_iter_new <= 0) {
 version(PRINTING){
-    c_eprint(cast(char*)"ERROR in %s: max_iter must be positive\n", cast(char*)__FUNCTION__);
+    c_eprint("ERROR in %s: max_iter must be positive\n", __FUNCTION__.ptr);
 } /* ifdef PRINTING */
     return 1;
   }
@@ -1397,7 +1397,7 @@ c_int osqp_update_eps_abs(OSQPWorkspace *work, c_float eps_abs_new) {
   // Check that eps_abs is positive
   if (eps_abs_new < 0.) {
 version(PRINTING){
-    c_eprint(cast(char*)"ERROR in %s: eps_abs must be nonnegative\n", cast(char*)__FUNCTION__);
+    c_eprint("ERROR in %s: eps_abs must be nonnegative\n", __FUNCTION__.ptr);
 } /* ifdef PRINTING */
     return 1;
   }
@@ -1416,7 +1416,7 @@ c_int osqp_update_eps_rel(OSQPWorkspace *work, c_float eps_rel_new) {
   // Check that eps_rel is positive
   if (eps_rel_new < 0.) {
 version(PRINTING){
-    c_eprint(cast(char*)"ERROR in %s: eps_rel must be nonnegative\n", cast(char*)__FUNCTION__);
+    c_eprint("ERROR in %s: eps_rel must be nonnegative\n", __FUNCTION__.ptr);
 } /* ifdef PRINTING */
     return 1;
   }
@@ -1435,7 +1435,7 @@ c_int osqp_update_eps_prim_inf(OSQPWorkspace *work, c_float eps_prim_inf_new) {
   // Check that eps_prim_inf is positive
   if (eps_prim_inf_new < 0.) {
 version(PRINTING){
-    c_eprint(cast(char*)"ERROR in %s: eps_prim_inf must be nonnegative\n", cast(char*)__FUNCTION__);
+    c_eprint("ERROR in %s: eps_prim_inf must be nonnegative\n", __FUNCTION__.ptr);
 } /* ifdef PRINTING */
     return 1;
   }
@@ -1454,7 +1454,7 @@ c_int osqp_update_eps_dual_inf(OSQPWorkspace *work, c_float eps_dual_inf_new) {
   // Check that eps_dual_inf is positive
   if (eps_dual_inf_new < 0.) {
 version(PRINTING){
-    c_eprint(cast(char*)"ERROR in %s: eps_dual_inf must be nonnegative\n", cast(char*)__FUNCTION__);
+    c_eprint("ERROR in %s: eps_dual_inf must be nonnegative\n", __FUNCTION__.ptr);
 } /* ifdef PRINTING */
     return 1;
   }
@@ -1474,7 +1474,7 @@ c_int osqp_update_alpha(OSQPWorkspace *work, c_float alpha_new) {
   // Check that alpha is between 0 and 2
   if ((alpha_new <= 0.) || (alpha_new >= 2.)) {
 version(PRINTING){
-    c_eprint(cast(char*)"ERROR in %s: alpha must be between 0 and 2\n", cast(char*)__FUNCTION__);
+    c_eprint("ERROR in %s: alpha must be between 0 and 2\n", __FUNCTION__.ptr);
 } /* ifdef PRINTING */
     return 1;
   }
@@ -1493,7 +1493,7 @@ c_int osqp_update_warm_start(OSQPWorkspace *work, c_int warm_start_new) {
   // Check that warm_start is either 0 or 1
   if ((warm_start_new != 0) && (warm_start_new != 1)) {
 version(PRINTING){
-    c_eprint(cast(char*)"ERROR in %s: warm_start should be either 0 or 1\n", cast(char*)__FUNCTION__);
+    c_eprint("ERROR in %s: warm_start should be either 0 or 1\n", __FUNCTION__.ptr);
 } /* ifdef PRINTING */
     return 1;
   }
@@ -1512,7 +1512,7 @@ c_int osqp_update_scaled_termination(OSQPWorkspace *work, c_int scaled_terminati
   // Check that scaled_termination is either 0 or 1
   if ((scaled_termination_new != 0) && (scaled_termination_new != 1)) {
 version(PRINTING){
-    c_eprint(cast(char*)"ERROR in %s: scaled_termination should be either 0 or 1\n", cast(char*)__FUNCTION__);
+    c_eprint("ERROR in %s: scaled_termination should be either 0 or 1\n", __FUNCTION__.ptr);
 } /* ifdef PRINTING */
     return 1;
   }
@@ -1531,7 +1531,7 @@ c_int osqp_update_check_termination(OSQPWorkspace *work, c_int check_termination
   // Check that check_termination is nonnegative
   if (check_termination_new < 0) {
 version(PRINTING){
-    c_eprint(cast(char*)"ERROR in %s: check_termination should be nonnegative\n", cast(char*)__FUNCTION__);
+    c_eprint("ERROR in %s: check_termination should be nonnegative\n", __FUNCTION__.ptr);
 } /* ifdef PRINTING */
     return 1;
   }
@@ -1553,7 +1553,7 @@ c_int osqp_update_delta(OSQPWorkspace *work, c_float delta_new) {
   // Check that delta is positive
   if (delta_new <= 0.) {
 version(PRINTING){
-    c_eprint(cast(char*)"ERROR in %s: delta must be positive\n", cast(char*)__FUNCTION__);
+    c_eprint("ERROR in %s: delta must be positive\n", __FUNCTION__.ptr);
 } /* ifdef PRINTING */
     return 1;
   }
@@ -1572,7 +1572,7 @@ c_int osqp_update_polish(OSQPWorkspace *work, c_int polish_new) {
   // Check that polish is either 0 or 1
   if ((polish_new != 0) && (polish_new != 1)) {
 version(PRINTING){
-    c_eprint(cast(char*)"ERROR in %s: polish should be either 0 or 1\n", cast(char*)__FUNCTION__);
+    c_eprint("ERROR in %s: polish should be either 0 or 1\n", __FUNCTION__.ptr);
 } /* ifdef PRINTING */
     return 1;
   }
@@ -1597,7 +1597,7 @@ c_int osqp_update_polish_refine_iter(OSQPWorkspace *work, c_int polish_refine_it
   // Check that polish_refine_iter is nonnegative
   if (polish_refine_iter_new < 0) {
 version(PRINTING){
-    c_eprint(cast(char*)"ERROR in %s: polish_refine_iter must be nonnegative\n", cast(char*)__FUNCTION__);
+    c_eprint("ERROR in %s: polish_refine_iter must be nonnegative\n", __FUNCTION__.ptr);
 } /* ifdef PRINTING */
     return 1;
   }
@@ -1617,7 +1617,7 @@ c_int osqp_update_verbose(OSQPWorkspace *work, c_int verbose_new) {
   if ((verbose_new != 0) && (verbose_new != 1)) {
 
 version(PRINTING){
-    c_eprint(cast(char*)"ERROR in %s: verbose should be either 0 or 1\n", cast(char*)__FUNCTION__);
+    c_eprint("ERROR in %s: verbose should be either 0 or 1\n", __FUNCTION__.ptr);
 } /* ifdef PRINTING */
     return 1;
   }

@@ -229,11 +229,11 @@ version (PRINTING)
   
     // todo : so I skip all arguments printing for now
 
-    c_print(cast(char*)"ERROR in %s: ", cast(char*)__FUNCTION__); 
+    c_print("ERROR in %s: ", __FUNCTION__.ptr); 
     //for (int i = 0; i < _arguments.length; i++) c_print(_arguments[i]);  // works only for extern (D) functions
 
   
 
-    c_print(cast(char*)"\n"); 
+    c_print("\n"); 
   }*/
 }

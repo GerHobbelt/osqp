@@ -173,7 +173,7 @@ void free_linsys_solver_pardiso(pardiso_solver *s) {
 
       if ( s.error != 0 ){
 version(PRINTING){
-          c_eprint(cast(char*)"ERROR in %s: Error during MKL Pardiso cleanup: %d\n", cast(char*)__FUNCTION__, cast(int)s.error);
+          c_eprint("ERROR in %s: Error during MKL Pardiso cleanup: %d\n", __FUNCTION__.ptr, cast(int)s.error);
 }
       }
         // Check each attribute of the structure and free it if it exists
@@ -268,7 +268,7 @@ c_int init_linsys_solver_pardiso(pardiso_solver ** sp, const csc * P, const csc 
     // Check if matrix has been created
     if (!(s.KKT)) {
 version(PRINTING){
-	    c_eprint(cast(char*)"ERROR in %s: Error in forming KKT matrix\n", cast(char*)__FUNCTION__);
+	    c_eprint("ERROR in %s: Error in forming KKT matrix\n", __FUNCTION__.ptr);
 }
         free_linsys_solver_pardiso(s);
         return OSQP_LINSYS_SOLVER_INIT_ERROR;
@@ -328,7 +328,7 @@ version(DLONG){
              cast(int*)s.iparm, &(s.msglvl), &(s.fdum), &(s.fdum), &(s.error));
     if ( s.error != 0 ){
 version(PRINTING){
-        c_eprint(cast(char*)"ERROR in %s: Error during symbolic factorization: %d\n", cast(char*)__FUNCTION__, cast(int)s.error);
+        c_eprint("ERROR in %s: Error during symbolic factorization: %d\n", __FUNCTION__.ptr, cast(int)s.error);
 }
         free_linsys_solver_pardiso(s);
         *sp = OSQP_NULL;
@@ -342,7 +342,7 @@ version(PRINTING){
              cast(int*)s.iparm, &(s.msglvl), &(s.fdum), &(s.fdum), &(s.error));
     if ( s.error ){
 version (PRINTING){
-        c_eprint(cast(char*)"ERROR in %s: Error during numerical factorization: %d\n", cast(char*)__FUNCTION__, cast(int)s.error);
+        c_eprint("ERROR in %s: Error during numerical factorization: %d\n", __FUNCTION__.ptr, cast(int)s.error);
 }
         free_linsys_solver_pardiso(s);
         *sp = OSQP_NULL;
@@ -365,7 +365,7 @@ c_int solve_linsys_pardiso(pardiso_solver * s, c_float * b) {
              cast(int*)s.iparm, &(s.msglvl), b, s.sol, &(s.error));
     if ( s.error != 0 ){
 version(PRINTING){
-        c_eprint(cast(char*)"ERROR in %s: Error during linear system solution: %d\n", cast(char*)__FUNCTION__, cast(int)s.error);
+        c_eprint("ERROR in %s: Error during linear system solution: %d\n", __FUNCTION__.ptr, cast(int)s.error);
 }
         return 1;
     }
