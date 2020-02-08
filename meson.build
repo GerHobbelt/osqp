@@ -22,7 +22,6 @@ conf_data = configuration_data({
   'EMBEDDED': get_option('USE_EMBEDDED'),
   'OSQP_CUSTOM_MEMORY': get_option('OSQP_CUSTOM_MEMORY'),
   'OSQP_CUSTOM_MEMORY_HEADER': get_option('OSQP_CUSTOM_MEMORY_HEADER'),
-  'CMAKE_SIZEOF_VOID_P': get_option('CMAKE_SIZEOF_VOID_P'),
   'MATLAB': get_option('MATLAB'),
   'PYTHON': get_option('PYTHON'),
   'R_LANG': get_option('R_LANG'),
@@ -67,14 +66,6 @@ message(['STATUS', 'User interrupt is @0@'.format(get_option('CTRLC'))])
 
 # Use floats instead of integers
 message(['STATUS', 'Floats are @0@'.format(get_option('DFLOAT'))])
-
-# Use long integers for indexing
-if get_option('CMAKE_SIZEOF_VOID_P') != '8'
-  message(['STATUS', 'Disabling long integers (64bit) on 32bit machine'])
-  conf_data.set('DLONG', false)
-endif
-message(['STATUS', 'Long integers (64bit) are @0@'.format(get_option('DLONG'))])
-
 
 if get_option('DEBUG')
   conf_data.set('DEBUG', true)

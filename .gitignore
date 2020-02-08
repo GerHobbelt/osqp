@@ -7,7 +7,6 @@ compile_commands.json
 out/
 
 # Prerequisites
-*.d
 .VSCodeCounter
 # Object files
 *.o

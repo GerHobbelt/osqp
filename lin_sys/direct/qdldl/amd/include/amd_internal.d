@@ -322,7 +322,6 @@ else
     /* from assert.h:  assert macro */
     // todo : maybe no need special import for assert
     //#include <assert.h>
-    import core.exception;
     //import core.sync.exception;
     //import core.stdcpp.exception;    
 
