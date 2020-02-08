@@ -680,18 +680,18 @@ void update_status(OSQPInfo *info, c_int status_val) {
   info.status_val = status_val;
 
   // Update status string depending on status val
-  if (status_val == OSQP_SOLVED) c_strcpy(cast(char*)info.status, "solved");
+  if (status_val == OSQP_SOLVED) c_strcpy(info.status.ptr, "solved");
 
-  if (status_val == OSQP_SOLVED_INACCURATE) c_strcpy(cast(char*)info.status, "solved inaccurate");
-  else if (status_val == OSQP_PRIMAL_INFEASIBLE) c_strcpy(cast(char*)info.status, "primal infeasible");
-  else if (status_val == OSQP_PRIMAL_INFEASIBLE_INACCURATE) c_strcpy(cast(char*)info.status, "primal infeasible inaccurate");
-  else if (status_val == OSQP_UNSOLVED) c_strcpy(cast(char*)info.status, "unsolved");
-  else if (status_val == OSQP_DUAL_INFEASIBLE) c_strcpy(cast(char*)info.status,"dual infeasible");
-  else if (status_val == OSQP_DUAL_INFEASIBLE_INACCURATE) c_strcpy(cast(char*)info.status, "dual infeasible inaccurate");
-  else if (status_val == OSQP_MAX_ITER_REACHED) c_strcpy(cast(char*)info.status, "maximum iterations reached");
-  else if (status_val == OSQP_TIME_LIMIT_REACHED) c_strcpy(cast(char*)info.status, "run time limit reached");
-  else if (status_val == OSQP_SIGINT) c_strcpy(cast(char*)info.status, "interrupted");
-  else if (status_val == OSQP_NON_CVX) c_strcpy(cast(char*)info.status, "problem non convex");
+  if (status_val == OSQP_SOLVED_INACCURATE) c_strcpy(info.status.ptr, "solved inaccurate");
+  else if (status_val == OSQP_PRIMAL_INFEASIBLE) c_strcpy(info.status.ptr, "primal infeasible");
+  else if (status_val == OSQP_PRIMAL_INFEASIBLE_INACCURATE) c_strcpy(info.status.ptr, "primal infeasible inaccurate");
+  else if (status_val == OSQP_UNSOLVED) c_strcpy(info.status.ptr, "unsolved");
+  else if (status_val == OSQP_DUAL_INFEASIBLE) c_strcpy(info.status.ptr,"dual infeasible");
+  else if (status_val == OSQP_DUAL_INFEASIBLE_INACCURATE) c_strcpy(info.status.ptr, "dual infeasible inaccurate");
+  else if (status_val == OSQP_MAX_ITER_REACHED) c_strcpy(info.status.ptr, "maximum iterations reached");
+  else if (status_val == OSQP_TIME_LIMIT_REACHED) c_strcpy(info.status.ptr, "run time limit reached");
+  else if (status_val == OSQP_SIGINT) c_strcpy(info.status.ptr, "interrupted");
+  else if (status_val == OSQP_NON_CVX) c_strcpy(info.status.ptr, "problem non convex");
 }
 }
 else {
@@ -700,24 +700,24 @@ else {
   info.status_val = status_val;
 
   // Update status string depending on status val
-  if (status_val == OSQP_SOLVED) c_strcpy(info.status, "solved");
+  if (status_val == OSQP_SOLVED) c_strcpy(info.status.ptr, "solved");
 
-  if (status_val == OSQP_SOLVED_INACCURATE) c_strcpy(cast(char*)info.status,
+  if (status_val == OSQP_SOLVED_INACCURATE) c_strcpy(info.status.ptr,
                                                      "solved inaccurate");
-  else if (status_val == OSQP_PRIMAL_INFEASIBLE) c_strcpy(cast(char*)info.status,
+  else if (status_val == OSQP_PRIMAL_INFEASIBLE) c_strcpy(info.status.ptr,
                                                           "primal infeasible");
-  else if (status_val == OSQP_PRIMAL_INFEASIBLE_INACCURATE) c_strcpy(cast(char*)info.status,
+  else if (status_val == OSQP_PRIMAL_INFEASIBLE_INACCURATE) c_strcpy(info.status.ptr,
                                                                      "primal infeasible inaccurate");
-  else if (status_val == OSQP_UNSOLVED) c_strcpy(cast(char*)info.status, "unsolved");
-  else if (status_val == OSQP_DUAL_INFEASIBLE) c_strcpy(cast(char*)info.status,
+  else if (status_val == OSQP_UNSOLVED) c_strcpy(info.status.ptr, "unsolved");
+  else if (status_val == OSQP_DUAL_INFEASIBLE) c_strcpy(info.status.ptr,
                                                         "dual infeasible");
-  else if (status_val == OSQP_DUAL_INFEASIBLE_INACCURATE) c_strcpy(cast(char*)info.status,
+  else if (status_val == OSQP_DUAL_INFEASIBLE_INACCURATE) c_strcpy(info.status.ptr,
                                                                    "dual infeasible inaccurate");
-  else if (status_val == OSQP_MAX_ITER_REACHED) c_strcpy(cast(char*)info.status,
+  else if (status_val == OSQP_MAX_ITER_REACHED) c_strcpy(info.status.ptr,
                                                          "maximum iterations reached");
-  else if (status_val == OSQP_SIGINT) c_strcpy(cast(char*)nfo.status, "interrupted");
+  else if (status_val == OSQP_SIGINT) c_strcpy(info.status.ptr, "interrupted");
 
-  else if (status_val == OSQP_NON_CVX) c_strcpy(cast(char*)info.status, "problem non convex");
+  else if (status_val == OSQP_NON_CVX) c_strcpy(info.status.ptr, "problem non convex");
 }
   
 }

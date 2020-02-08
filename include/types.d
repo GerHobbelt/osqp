@@ -71,8 +71,8 @@ struct OSQP_TIMER {
   LARGE_INTEGER freq;
 };
 
-} else version(OSX){
-
+} else version(OSX)
+{
     //#   include <mach/mach_time.h>
     import core.time: mach_timebase_info_data_t;  // todo
 
@@ -95,9 +95,10 @@ else version(linux)
     };
 }
 
+alias OSQPTimer = OSQP_TIMER;
+
 }/* END #ifdef PROFILING */
 
-alias OSQPTimer = OSQP_TIMER;
 
 /**
  * Problem scaling matrices stored as vectors

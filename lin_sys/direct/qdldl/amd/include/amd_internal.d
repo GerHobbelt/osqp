@@ -39,6 +39,7 @@
     To enable debugging, uncomment the following line:
 #undef NDEBUG
 */
+module amd_internal;
 
 nothrow @nogc extern(C):
 
