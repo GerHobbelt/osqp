@@ -5,5 +5,6 @@ copyright "Copyright © 2020, Bartolomeo Stellato, Goran Banjac, Paul Goulart, S
 license "Apache-2.0"
 sourcePaths "src" "include" "lin_sys"
 excludedSourceFiles "lin_sys/direct/pardiso/*"
-importPaths "src" "include" "lin_sys" "lin_sys/qldl" "lin_sys/qldl_sources/src" "lin_sys/qldl/source" "lin_sys/qldl/amd/include" "lin_sys/qldl/amd/src"
+importPaths "src" "include" "lin_sys" "lin_sys/direct/qdldl" "lin_sys/direct/qdldl/qdldl_sources" "lin_sys/direct/qdldl/qdldl_sources/src" "lin_sys/direct/qdldl/qdldl_sources/include" "lin_sys/direct/qdldl/amd/include" "lin_sys/direct/qdldl/amd/src" 
 versions "NDEBUG"
+versions "DLONG" platform="x86_64"
