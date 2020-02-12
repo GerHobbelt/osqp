@@ -283,6 +283,14 @@ osqpstatic_lib = library('osqpstatic',
                                 c_args: d_args,
                                 d_module_versions: d_module_versions
                                 )
+
+osqp_dep = declare_dependency(
+    link_with: [osqpstatic_lib],
+    include_directories: include_directories('include', 'lin_sys/direct/qdldl', 'lin_sys/direct/qdldl/qdldl_sources/include', 'src',
+        'lin_sys/direct/qdldl/qdldl_sources/src', 'lin_sys/direct/qdldl/amd/src', 'lin_sys/direct/qdldl/amd/include', 'lin_sys'),
+    dependencies: [m_lib, rt_lib, dl_lib, gcov_lib],
+)
+
 # Give same name to static library output
 # set_target_properties(['osqpstatic', 'PROPERTIES', 'OUTPUT_NAME', 'osqp'])
 # ----------------------------------------------
