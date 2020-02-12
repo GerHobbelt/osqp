@@ -1,0 +1,14 @@
+
+module qdldl_types;
+
+import core.stdc.limits;
+
+// QDLDL types
+
+alias QDLDL_BOOL_TYPE = @QDLDL_BOOL_TYPE@;
+
+alias QDLDL_int = @QDLDL_INT_TYPE@;
+alias QDLDL_float = @QDLDL_FLOAT_TYPE@;
+alias QDLDL_bool = @QDLDL_BOOL_TYPE@;
+
+enum long QDLDL_INT_MAX = @QDLDL_INT_MAX@;

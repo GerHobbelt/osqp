@@ -1,0 +1,35 @@
+#ifndef QDLDL_TYPES_H
+# define QDLDL_TYPES_H
+
+# ifdef __cplusplus
+extern "C" {
+# endif /* ifdef __cplusplus */
+
+#include <limits.h> //for the QDLDL_INT_TYPE_MAX
+
+// QDLDL integer and float types
+#define QDLDL_BOOL_TYPE unsigned char
+
+# ifndef DFLOAT         // Doubles
+#define QDLDL_FLOAT_TYPE double
+# else                  // Floats
+#define QDLDL_FLOAT_TYPE float
+# endif /* ifndef DFLOAT */
+
+# ifdef DLONG                    // long integers
+#define QDLDL_INT_TYPE long long /* for indices */
+#define QDLDL_INT_MAX LLONG_MAX  //Maximum value of the signed type QDLDL_int.
+# else                           // standard integers
+#define QDLDL_INT_TYPE int       /* for indices */
+#define QDLDL_INT_MAX INT_MAX //Maximum value of the signed type QDLDL_int.
+# endif /* ifdef DLONG */
+
+typedef @QDLDL_INT_TYPE@    QDLDL_int;   /* for indices */
+typedef @QDLDL_FLOAT_TYPE@  QDLDL_float; /* for numerical values  */
+typedef @QDLDL_BOOL_TYPE@   QDLDL_bool;  /* for boolean values  */
+
+# ifdef __cplusplus
+}
+# endif /* ifdef __cplusplus */
+
+#endif /* ifndef QDLDL_TYPES_H */
