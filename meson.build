@@ -321,10 +321,12 @@ d_library_src = ['include/glob_opts.d',
           'lin_sys/direct/qdldl/amd/src/amd_valid.d',
           'lin_sys/direct/qdldl/amd/include/amd_internal.d']
 
+if embedded == '0'
+if conf_data.get('UNITTESTS')
+
 # If we are building Python/Matlab/R interface:
 #   - do not build shared library
 #   - do not build demo
-if not python and not matlab and not r_lang and (embedded == '0')
   # Create osqp shared library
   # NB: Add all the linear system solvers here
 
@@ -357,12 +359,9 @@ if not python and not matlab and not r_lang and (embedded == '0')
                             d_module_versions: d_module_versions
                             )
   test('osqp_demo', osqp_demo_exe)
-endif
 
-if embedded == '0'
 # ----------------------------------------------
 # Add custom command to generate tests
-if conf_data.get('UNITTESTS')
 
   subdir('tests')
 
