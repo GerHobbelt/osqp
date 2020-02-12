@@ -63,12 +63,12 @@ enum bool NOGDI = true; // todo : test it
 }
 
 //#   include <windows.h>
-import windows; // todo
+// import windows; // todo
 
 struct OSQPTimer {
-  LARGE_INTEGER tic;
-  LARGE_INTEGER toc;
-  LARGE_INTEGER freq;
+  ulong tic;
+  ulong toc;
+  ulong freq;
 };
 
 } else version(OSX)

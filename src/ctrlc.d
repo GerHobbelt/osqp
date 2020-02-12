@@ -1,3 +1,7 @@
+module ctrlc;
+
+version(CTRLC):
+
 /*
  * Implements signal handling (ctrl-c) for OSQP.
  *

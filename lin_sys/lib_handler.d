@@ -1,5 +1,7 @@
 module lib_handler;
 
+version(none):
+
 nothrow @nogc extern(C):
 
 import glob_opts;
