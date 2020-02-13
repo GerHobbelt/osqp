@@ -274,7 +274,7 @@ subdir('lin_sys')
 osqpstatic_lib = library('osqpstatic', 
                                 osqp_src, 
                                 osqp_headers,
-                                include_directories: ['include', 'lin_sys/direct/qdldl', 'lin_sys/direct/qdldl/qdldl_sources/include', 'lin_sys/direct/pardiso', 'src',
+                                include_directories: ['include', 'lin_sys/direct/qdldl', 'lin_sys/direct/qdldl/qdldl_sources/include', 'src',
                                       'lin_sys/direct/qdldl/qdldl_sources/src', 'lin_sys/direct/qdldl/amd/src', 'lin_sys/direct/qdldl/amd/include', 'lin_sys'], # for D modules
                                 #dependencies: [c_compiler.find_library('m'), c_compiler.find_library('rt'), c_compiler.find_library('dl'), c_compiler.find_library('gcov')],
                                 dependencies: [m_lib, rt_lib, dl_lib, gcov_lib],
@@ -333,7 +333,7 @@ if conf_data.get('UNITTESTS')
   osqp_lib = library('osqp', 
                             osqp_src, 
                             osqp_headers,
-                            include_directories: ['include', 'lin_sys/direct/qdldl/', 'lin_sys/direct/qdldl/qdldl_sources/include', 'lin_sys/direct/pardiso',
+                            include_directories: ['include', 'lin_sys/direct/qdldl/', 'lin_sys/direct/qdldl/qdldl_sources/include',
                             'src', 'lin_sys/direct/qdldl/qdldl_sources/src', 'lin_sys/direct/qdldl/amd/src', 'lin_sys/direct/qdldl/amd/include', 'lin_sys'], # for D modules
                             #dependencies: [c_compiler.find_library('m'), c_compiler.find_library('rt'), c_compiler.find_library('dl'), gcov_lib],
                             dependencies: [m_lib, rt_lib, dl_lib, gcov_lib],
