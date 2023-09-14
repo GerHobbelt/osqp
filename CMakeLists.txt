@@ -34,9 +34,9 @@ endif()
 # OSQP Versioning
 # ----------------------------------------------
 set(OSQP_VERSION
-    "0.0.0"
+    "1.0.0"
     CACHE STRING "The version number of OSQP")
-if(NOT OSQP_VERSION STREQUAL "0.0.0")
+if(NOT OSQP_VERSION STREQUAL "1.0.0")
   configure_file("${PROJECT_SOURCE_DIR}/configure/version.h.in" "${PROJECT_SOURCE_DIR}/include/private/version.h")
 endif()
 
@@ -247,10 +247,12 @@ if(OSQP_ALGEBRA_CUDA)
   # sm_75 -> Turing support
   if(OSQP_USE_FLOAT)
     set(CMAKE_CUDA_ARCHITECTURES 52 75)
+    message(STATUS "Using floats for CUDA")
     # set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} --gpu-architecture=compute_52 --gpu-code=sm_52,sm_75")
   else()
     # To use doubles we need compute capability 6.0 for atomic operations
     set(CMAKE_CUDA_ARCHITECTURES 60 75)
+    message(STATUS "Using doubles for CUDA")
     # set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} --gpu-architecture=compute_60 --gpu-code=sm_60,sm_75")
   endif()
 endif()
