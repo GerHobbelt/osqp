@@ -102,6 +102,7 @@ endif()
 option (COVERAGE "Perform code coverage" OFF)
 message(STATUS "Code coverage is ${COVERAGE}")
 
+option (OSQP_BUILD_STATIC_LIB "Build the static library" ON)
 
 # Memory allocators
 # ----------------------------------------------
@@ -272,29 +273,36 @@ endif (R_LANG)
 add_subdirectory(lin_sys)
 
 # Static library
-add_library (osqpstatic STATIC ${osqp_src} ${osqp_headers} ${linsys_solvers})
-# Give same name to static library output
-set_target_properties(osqpstatic PROPERTIES OUTPUT_NAME osqp)
+if (OSQP_BUILD_STATIC_LIB)
+    add_library (osqpstatic STATIC ${osqp_src} ${osqp_headers} ${linsys_solvers})
+    # Give same name to static library output
+    set_target_properties(osqpstatic PROPERTIES OUTPUT_NAME osqp)
 
-# Include directories for linear system solvers
-target_include_directories(osqpstatic PRIVATE ${linsys_solvers_includes})
+    # Include directories for linear system solvers
+    target_include_directories(osqpstatic PRIVATE ${linsys_solvers_includes})
 
-# Declare include directories for the cmake exported target
-target_include_directories(osqpstatic
-                           PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-                                  "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}/osqp>")
+    # Declare include directories for the cmake exported target
+    target_include_directories(osqpstatic
+                               PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+                                      "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}/osqp>")
+    set(OSQP_TARGET_TO_LINK_IN_INTERNAL_EXECUTABLES "osqpstatic")
+else()
+    set(OSQP_TARGET_TO_LINK_IN_INTERNAL_EXECUTABLES "osqp")
+endif()
+
 
 # Install Static Library
 # ----------------------------------------------
 
 include(GNUInstallDirs)
 
-install(TARGETS osqpstatic
-        EXPORT  ${PROJECT_NAME}
-        ARCHIVE       DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-        LIBRARY       DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-        RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}")
-
+if (OSQP_BUILD_STATIC_LIB)
+    install(TARGETS osqpstatic
+            EXPORT  ${PROJECT_NAME}
+            ARCHIVE       DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+            LIBRARY       DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+            RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}")
+endif()
 
 # Install Headers
 # ----------------------------------------------
@@ -303,9 +311,9 @@ install(FILES ${osqp_headers} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/osqp")
 
 
 
-if (MATLAB)
+if (MATLAB AND OSQP_BUILD_STATIC_LIB)
 target_link_libraries (osqpstatic ${Matlab_LIBRARIES})
-endif (MATLAB)
+endif (MATLAB AND OSQP_BUILD_STATIC_LIB)
 
 # If we are building Python/Matlab/R interface:
 #   - do not build shared library
@@ -330,9 +338,12 @@ if (NOT PYTHON AND NOT MATLAB AND NOT R_LANG AND NOT EMBEDDED)
             ARCHIVE       DESTINATION "${CMAKE_INSTALL_LIBDIR}"
             RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}")
 
-    # Create demo executable (linked to static library)
+    set_target_properties(osqp PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+
+    # Create demo executable
     add_executable (osqp_demo ${PROJECT_SOURCE_DIR}/examples/osqp_demo.c)
-    target_link_libraries (osqp_demo osqpstatic)
+    target_link_libraries (osqp_demo ${OSQP_TARGET_TO_LINK_IN_INTERNAL_EXECUTABLES})
+
 
 endif (NOT PYTHON AND NOT MATLAB AND NOT R_LANG AND NOT EMBEDDED)
 
@@ -431,7 +442,7 @@ if (UNITTESTS)
                 CXX_STANDARD_REQUIRED YES
                 CXX_EXTENSIONS NO
             )
-    target_link_libraries (osqp_tester osqpstatic ${CMAKE_DL_LIBS})
+    target_link_libraries (osqp_tester ${OSQP_TARGET_TO_LINK_IN_INTERNAL_EXECUTABLES} ${CMAKE_DL_LIBS})
 
     # Add custom memory target
     add_executable(osqp_tester_custom_memory
@@ -443,7 +454,7 @@ if (UNITTESTS)
 		   ${PROJECT_SOURCE_DIR}/tests/custom_memory/custom_memory.c
 		   ${PROJECT_SOURCE_DIR}/tests/custom_memory/custom_memory.h
 		)
-    target_link_libraries (osqp_tester_custom_memory osqpstatic ${CMAKE_DL_LIBS})
+    target_link_libraries (osqp_tester_custom_memory ${OSQP_TARGET_TO_LINK_IN_INTERNAL_EXECUTABLES} ${CMAKE_DL_LIBS})
 
     # Add testing
     include(CTest)
